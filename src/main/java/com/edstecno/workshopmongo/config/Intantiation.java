@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.edstecno.workshopmongo.domain.Post;
 import com.edstecno.workshopmongo.domain.User;
 import com.edstecno.workshopmongo.dto.AuthorDTO;
+import com.edstecno.workshopmongo.dto.CommentDTO;
 import com.edstecno.workshopmongo.repository.PostRepository;
 import com.edstecno.workshopmongo.repository.UserRepository;
 
@@ -45,8 +46,17 @@ public class Intantiation implements CommandLineRunner {
 		postRepository.saveAll(Arrays.asList(post1, post2));
 
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
-		
+
 		userRepository.save(maria);
+
+		CommentDTO com1 = new CommentDTO("Boa viagem mano!", sdf.parse("2018/03/21"), new AuthorDTO(alex));
+		CommentDTO com2 = new CommentDTO("Aproveite", sdf.parse("2018/03/22"), new AuthorDTO(bob));
+		CommentDTO com3 = new CommentDTO("Tenha um ótimo dia", sdf.parse("2018/03/23"), new AuthorDTO(alex));
+
+		post1.getComents().addAll(Arrays.asList(com1, com2));
+		post2.getComents().add(com3);
+
+		postRepository.saveAll(Arrays.asList(post1, post2));
 
 	}
 
